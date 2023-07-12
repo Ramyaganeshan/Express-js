@@ -1,0 +1,29 @@
+HTTP - hyper test transfer protocal.
+WWW is about communication bteween web clinets and server. 
+It is done by sending HTTP request and receving HTTP responses.
+A client (a browser) send a HTTP request to the web.
+the web server receives the request.
+the server run an applicaation to process the request.
+The server retruns an HTTP responses (output) to the browser.
+the client ( the browser) receive the response.
+
+
+HTTP METHODS:
+Get, post, Put, Delete.
+
+1.Get:
+The get method should retrieve the data.
+It should send only a limited amount of data.
+And that data are visible in the url address.
+
+2.post:
+The post method send large amount of data and that data ar not visible in the url address.
+
+3.put:
+modifying the exsisting data.
+
+4.detete:
+This method request the server to delet the specified resourse.
+
+
+
