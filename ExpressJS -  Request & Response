@@ -1,0 +1,13 @@
+Express.js Request and Response objects are the parameters of the callback function which is used in Express applications.
+
+The express.js request object represents the HTTP request and has properties 
+for the request query string, parameters, body, HTTP headers, and so on.
+
+
+Syntax:
+app.get('/', function (req, res) {  
+   // --  
+})  
+
+Express.js Request Object Properties
+The following table specifies some of the properties associated with request object.
