@@ -1,0 +1,46 @@
+What is a REST API?
+REST, which stands for REpresentational State Transfer, is a software development architecture
+that defines a set of rules for communication between a client and a server. Let’s break this down a little more:
+
+A REST client is a code or app used to communicate with REST servers.
+A server contains resources that the client wants to access or change.
+A resource is any information that the API can return.
+
+A REST API, also known as a RESTful API, is an API that conforms to the REST architecture.
+These APIs use the HTTP protocol to access and manipulate data on the server.
+The essential components of a REST API include the HTTP method, endpoint, headers, and body.
+
+
+HTTP methods
+The HTTP method defines the action the client wants to make on the server,
+which includes creating, reading, updating, or deleting resources (CRUD). 
+Here are four HTTP methods that are commonly used in REST APIs:
+
+GET: used to retrieve resources.
+POST: used to add resources.
+PUT: used to update resources.
+DELETE: used to delete resources.
+
+Now that we’ve covered the fundamentals of RESTful APIs, let’s look at why and how you can build them with Node.js.
+
+What is Node.js?
+By definition, Node.js is an open source and cross-platform JavaScript runtime environment
+that runs based on Chrome’s V8 engine.
+
+To break this down a little further, you can:
+Quickly find the source code for Node.js (open source).
+Run Node.js on Linux, Windows, or macOS (cross-platform).
+Execute your JavaScript program or application on the server instead of the browser using Node.js (runtime environment).
+
+
+Why should you use Node.js and Express to build your REST API?
+Here are four key advantages of Node.js and Express:
+The ability to use a single language (JavaScript) for both client-side and server-side development.
+Fast and powerful performance, owing to the ability to run multiple requests in parallel.
+Middleware and routing capabilities that are built into Express to make API development quick and easy.
+A large, active community of developers contributing to the ecosystem.
+As you develop the user management API, you’ll start seeing these benefits quickly. Let’s get started.
+
+
+
+
