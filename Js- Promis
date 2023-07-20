@@ -1,0 +1,44 @@
+if your friend ask you to book a train ticket for him.
+you said OK.
+and your friend said .. if the train ticket is confromed give me a message "sucess" or else give me a message "failiur".
+You said SURE! ----> That is what Promise.
+If the ticket is  conformed  ---> that is called resolved
+If the ticked is not confrom ---> that is called reject
+
+
+How to write it in a code:
+const bookticket = new promise((resolve, reject) =>{
+let bookingsuccess = true;
+if (bookingsuccess)
+       reslove()
+else
+       reject()
+)}
+
+bookticket.then(success)
+.ctach(failure)
+
+
+Another Example:
+<p id="demo"></p>
+
+<script>
+function myDisplayer(some) {
+  document.getElementById("demo").innerHTML = some;
+}
+
+let myPromise = new Promise(function(myResolve, myReject) {
+  let x = 0;
+
+  if (x == 0) {
+    myResolve("OK");
+  } else {
+    myReject("Error");
+  }
+});
+
+myPromise.then(
+  function(value) {myDisplayer(value);},
+  function(error) {myDisplayer(error);}
+);
+</script>
