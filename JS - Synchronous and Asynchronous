@@ -1,0 +1,37 @@
+Introduction
+Asynchronous JavaScript is the programming method where operations are run independently
+allowing the program to continue running while waiting for certain tasks to complete.
+Synchronous JavaScript is the programming approach where tasks of a program are executed sequentially one at a time.
+
+What is Synchronous in JavaScript?
+Synchronous in Javascript refers to the execution of a program code in a blocking manner.
+Here tasks are performed sequentially with the help of a call stack.
+Each individual  task must complete before the next one can begin.
+This results in delays in execution if any task takes a significant amount of time to execute.
+
+What is Asynchronous in JavaScript?
+Program codes that access or fetch some resource from a server, such as fetching a file from the network, 
+accessing a database and returning data from it, accessing a video stream from a webcam,
+or executing a function with a delay, the result of such operations may take a longer time to execute.
+This may result in the javascript engine to halt the execution of the other succeeding code block. 
+Hence for the javascript engine to manage things a bit more efficiently an asynchronous programming method is used.
+Asynchronous in JavaScript refers to the execution of code in a non-blocking manner. 
+It allows tasks to be performed independently, enabling the program to continue running 
+while waiting for certain tasks, such as data retrieval or network requests, to complete. 
+Asynchronous code makes use of callbacks, promises, or async/await to handle the results 
+of these tasks once they are finished.
+
+
+Difference Between Synchronous vs Asynchronous JavaScript?
+
+S.No               	Synchronous JavaScript	                                                             Asynchronous JavaScript
+1.	Every statement in a function is executed sequentially.                                      	Every statement in a function is not executed sequentially. It can also execute in parallel.  
+2.	The execution of the next instruction depends upon the execution of the previous instruction.  	The next instruction can execute while the previous one is still executing.
+3.	Synchronous JavaScript is preferred more. 	                                                         It is preferred in situations when the execution of some process gets blocked indefinitely.
+4.	Synchronous is a single thread. 	                                                                    Asynchronous is multi-thread in nature. 
+5.	Synchronous is slower in nature.                                                                             Asynchronous JavaScript
+1.	Every statement in a function is executed sequentially.                                      	Every statement in a function is not executed sequentially. It can also execute in parallel.  
+2.	The execution of the next instruction depends upon the execution of the previous instruction.  	The next instruction can execute while the previous one is still executing.
+3.	Synchronous JavaScript is preferred more. 	                                                         It is preferred in situations when the execution of some process gets blocked indefinitely.
+4.	Synchronous is a single thread. 	                                                                    Asynchronous is multi-thread in nature. 
+5.	Synchronous is slower in nature.                                                                                	Asynchronous increases throughout as processes run in parallel.
