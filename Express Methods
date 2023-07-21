@@ -1,0 +1,30 @@
+express()
+Creates an Express application. The express() function is a top-level function exported by the express module.
+
+var express = require('express')
+var app = express()
+
+
+METHODS:-
+express.json([options])
+This is a built-in middleware function in Express.
+This method is used to parse the incoming requests with JSON payloads and is based upon the bodyparser.
+This method returns the middleware that only parses JSON and only looks at the requests where
+the content-type header matches the type option.
+
+
+Syntax
+express.json([options])
+
+Parameters/options:
+Following are the different options available with this method
+inflate – This enables or disables the handling of the deflated or compressed bodies. Default: true
+limit – This controls the maximum size of the request body.
+reviver – This option is passed to the JSON.parse method as the second argument.
+strict – This enables or disables the accepting arrays or objects.
+type – This determines the media type for the middleware that will be parsed.
+
+
+Example 1
+
+
