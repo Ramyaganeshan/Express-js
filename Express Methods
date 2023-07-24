@@ -7,11 +7,22 @@ var app = express()
 
 METHODS:-
 express.json([options])
-This is a built-in middleware function in Express.
-This method is used to parse the incoming requests with JSON payloads and is based upon the bodyparser.
-This method returns the middleware that only parses JSON and only looks at the requests where
-the content-type header matches the type option.
+express.json() is a middleware function in the Express.js framework,
+which is a popular Node.js web application framework.
+Middleware functions in Express.js are essentially functions that have access
+to the request and response objects, and they can perform various tasks 
+such as parsing request data, authentication, logging, and more.
 
+Specifically, express.json() is used to parse incoming JSON data from 
+the body of the HTTP request. When a client sends data to the server in JSON format,
+it is typically included in the request body. For example, in a POST request,
+the client might send JSON data representing a new user, an update to an existing record,
+or any other relevant information.
+
+By using express.json() as middleware in your Express application,
+you enable the server to automatically parse the JSON data from the request body
+and make it available in the req.body object of the subsequent route handlers.
+This makes it easy for developers to work with incoming JSON data without having to manually parse it.
 
 Syntax
 express.json([options])
@@ -25,6 +36,156 @@ strict – This enables or disables the accepting arrays or objects.
 type – This determines the media type for the middleware that will be parsed.
 
 
-Example 1
+
+2.express.raw()
+In Express.js, express.raw() is a middleware function that is used to handle 
+raw binary data in the request body. It is one of the built-in middleware functions
+provided by Express to process incoming requests before they reach the route handlers.
+
+By default, Express.js does not handle raw binary data in the request body, such as
+images or other non-textual content. Instead, it primarily focuses on handling JSON
+data (express.json()) and URL-encoded form data (express.urlencoded()).
+
+However, in some cases, you may need to handle raw binary data directly,
+for example, when receiving files or binary data from a client application. 
+This is where express.raw() comes into play. It allows you to parse and 
+access the raw binary data from the request body, which you can then process or store as needed.
+
+To use express.raw(), you need to add it as middleware to your Express application before defining any routes.
+Here's an example of how you can use it:
+
+javascript
+Copy code
+const express = require('express');
+const app = express();
+
+// Middleware to handle raw binary data from the request body
+app.use(express.raw({ type: 'application/octet-stream', limit: '10mb' }));
+
+// Route handler for handling the request with raw binary data
+app.post('/upload', (req, res) => {
+  const rawData = req.body; // The raw binary data from the request body
+  // Process the raw data (e.g., save it to a file, process an image, etc.)
+  console.log(rawData);
+  res.status(200).send('Raw data received successfully.');
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on http://localhost:3000');
+});
+In the example above, we're using express.raw() middleware to handle 
+raw binary data with a specified type of application/octet-stream, which
+is a general type for binary data. We've also set a limit of '10mb', which
+means the maximum allowed size of the raw data is 10 megabytes.
+
+Keep in mind that when using express.raw(), you need to ensure that 
+the client application sends the appropriate content type and encoding for the 
+raw data being transmitted, and you may need to adjust the type parameter accordingly in the middleware configuration.
 
 
+3.express.router()
+express.Router() is a built-in middleware function in the Express.js web framework 
+that provides a way to create modular and mountable route handlers.
+It allows you to organize and define routes for specific functionalities or parts
+of your web application separately, which promotes better code organization and maintainability.
+
+With express.Router(), you can define a group of related routes and middleware as a
+mini "sub-application" that can be used within your main Express application.
+This is particularly useful when you have multiple routes and route handlers 
+that are related to a specific feature or functionality in your application.
+
+
+4.express.text()
+In Express.js, express.text() is a built-in middleware function that is used to handle
+plain text data in the request body. It automatically parses the text data sent by the 
+client and makes it available in the req.body object of subsequent route handlers.
+
+By default, Express.js does not handle plain text data in the request body.
+It primarily focuses on handling JSON data (express.json()), URL-encoded form data 
+(express.urlencoded()), and raw binary data (express.raw()).
+
+However, in some cases, you may need to handle plain text data directly, 
+for example, when working with APIs that expect text-based payloads.
+This is where express.text() comes into play. It allows you to parse and access 
+the plain text data from the request body easily.
+
+To use express.text(), you need to add it as middleware to your Express 
+application before defining any routes. 
+
+
+
+5.express.urlencoded()
+In Express.js, express.urlencoded() is a built-in middleware function that is used to parse URL-encoded form data from the request body. URL-encoded form data is commonly used when submitting HTML forms, and it consists of key-value pairs encoded in the URL format.
+
+For example, when a client submits a form with the following data:
+
+html
+Copy code
+<form action="/submit" method="post">
+  <input type="text" name="username" value="John">
+  <input type="email" name="email" value="john@example.com">
+  <input type="submit" value="Submit">
+</form>
+The data will be sent to the server in the URL-encoded format:
+
+makefile
+Copy code
+username=John&email=john%40example.com
+To extract and parse this data on the server side, you can use express.urlencoded() middleware. It will parse the URL-encoded data from the request body and make it available in the req.body object of subsequent route handlers.
+
+Here's an example of how to use express.urlencoded() in an Express application:
+
+javascript
+Copy code
+const express = require('express');
+const app = express();
+
+// Middleware to parse URL-encoded form data from the request body
+app.use(express.urlencoded({ extended: true }));
+
+// Route handler for handling form submission
+app.post('/submit', (req, res) => {
+  const username = req.body.username;
+  const email = req.body.email;
+
+  // Process the form data
+  console.log('Username:', username);
+  console.log('Email:', email);
+
+  res.send('Form data received successfully.');
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on http://localhost:3000');
+});
+In the example above, we're using 
+express.urlencoded() middleware with the extended:
+true option. This option allows the parsing of rich objects and arrays from the URL-encoded data.
+
+With the express.urlencoded() middleware in place, 
+when a POST request is made to the /submit endpoint with URL-encoded form data, 
+the data will be available in the req.body object of the route handler.
+You can then access the form fields by their names (in this case, username and email) and process the data as needed.
+
+Using express.urlencoded() is essential when you want to handle form submissions 
+or any other requests that send data in the URL-encoded format. It simplifies the 
+process of parsing and accessing form data in your Express application.
+
+
+
+
+
+
+Regenerate response
+
+
+
+
+
+
+
+
+
+
+User
+how can i improve my selfcontrol
