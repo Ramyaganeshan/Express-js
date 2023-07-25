@@ -115,7 +115,9 @@ application before defining any routes.
 
 
 5.express.urlencoded()
-In Express.js, express.urlencoded() is a built-in middleware function that is used to parse URL-encoded form data from the request body. URL-encoded form data is commonly used when submitting HTML forms, and it consists of key-value pairs encoded in the URL format.
+In Express.js, express.urlencoded() is a built-in middleware function that is used to parse URL-encoded 
+form data from the request body. URL-encoded form data is commonly used when submitting HTML forms,
+and it consists of key-value pairs encoded in the URL format.
 
 For example, when a client submits a form with the following data:
 
@@ -131,7 +133,10 @@ The data will be sent to the server in the URL-encoded format:
 makefile
 Copy code
 username=John&email=john%40example.com
-To extract and parse this data on the server side, you can use express.urlencoded() middleware. It will parse the URL-encoded data from the request body and make it available in the req.body object of subsequent route handlers.
+To extract and parse this data on the server side,
+you can use express.urlencoded() middleware.
+It will parse the URL-encoded data from the request body and
+make it available in the req.body object of subsequent route handlers.
 
 Here's an example of how to use express.urlencoded() in an Express application:
 
