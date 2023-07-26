@@ -1,0 +1,167 @@
+In Express.js, an "application" refers to the main instance of the Express framework.
+When you create an Express application using const app = express();, the app variable represents 
+the application object. This application object is central to your Express application and
+provides the core functionality to handle HTTP requests, define routes, set up middleware, and more.
+
+Here's how the application object is used in Express.js:
+
+Handling HTTP requests:
+The application object is the foundation for handling incoming HTTP requests.
+You can define routes to match specific URLs and HTTP methods (GET, POST, PUT, DELETE, etc.) 
+using methods like app.get(), app.post(), app.put(), app.delete(), etc.
+
+Example:
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+  res.send('Hello, World!');
+});
+
+
+Adding middleware:
+Middleware functions can be added to the application using the app.use() method.
+Middleware functions are executed sequentially for every incoming request and
+can perform tasks such as parsing request bodies, authentication, logging, error handling, and more.
+
+Example:
+const express = require('express');
+const app = express();
+
+// Logger middleware
+app.use((req, res, next) => {
+  console.log(`Request received at ${new Date()}`);
+  next();
+});
+
+
+
+app -- methods:-
+
+1.app.all()
+In Express.js, app.all() is a method that is used to define a middleware function 
+that will be executed for every type of HTTP request (GET, POST, PUT, DELETE, etc.) on a specific route.
+It is often used when you want to apply the same middleware logic to all types of requests on a particular route.
+
+The syntax for app.all() is as follows:
+app.all(path, callback)
+
+path: The URL path for which the middleware should be executed.
+It can be a specific route path or a pattern (e.g., "/users/:id" to match "/users/123" or "/users/abc").
+callback: The middleware function that will be executed for each request to the specified path. 
+It takes the usual (req, res, next) parameters.
+
+Here's an example:
+const express = require('express');
+const app = express();
+
+// Middleware function to be executed for all requests to "/example"
+app.all('/example', (req, res, next) => {
+  console.log('This middleware is executed for all requests to "/example"');
+  next();
+});
+
+// Route handler for GET request to "/example"
+app.get('/example', (req, res) => {
+  res.send('GET request to /example');
+});
+
+// Route handler for POST request to "/example"
+app.post('/example', (req, res) => {
+  res.send('POST request to /example');
+});
+
+In this example, the middleware defined using app.all('/example', ...) 
+will be executed for both GET and POST requests to the "/example" path. 
+So, if you make a request to "/example" (either GET or POST),
+the middleware will log the message specified in the callback function
+before passing control to the appropriate route handler.
+
+app.all() is useful when you want to enforce certain checks or apply common 
+logic across all request methods for a specific route.
+For instance, you might use it to enforce authentication for all requests to 
+a particular route or to log information about every incoming request to a specific path. 
+It offers a convenient way to apply middleware to multiple request methods on a particular
+route without having to duplicate code in each method-specific handler.
+
+
+
+2.app.delet()
+In Express.js, app.delete() is a method that is used to define a route handler 
+for handling HTTP DELETE requests to a specific path or URL. When a DELETE request is made to the specified route,
+the corresponding route handler function will be executed.
+
+The syntax for app.delete() is similar to other HTTP methods in Express.js:
+
+app.delete(path, callback)
+
+Here's an example:
+const express = require('express');
+const app = express();
+
+app.delete('/users/:id', (req, res) => {
+  const userId = req.params.id;
+  // Logic to delete the user with the specified userId from the database
+  res.send(`User with ID ${userId} has been deleted.`);
+});
+In this example, when a DELETE request is made to a path like "/users/123" or "/users/abc",
+the route handler function will be executed.
+It will extract the id parameter from the request URL using req.params.id and 
+then perform some logic (e.g., deleting the user with that ID from a database). 
+Finally, it will send a response back to the client with a message indicating that the user has been deleted.
+
+Remember that the HTTP DELETE method is used to request the removal of a resource specified by the URL.
+Therefore, when implementing a DELETE route, ensure that the server takes the appropriate action to delete
+the resource or perform the operation associated with the request.
+
+
+
+3.app.disable()
+In Express.js, app.disable() is a method used to disable a specific feature 
+or setting of the Express application. It allows you to turn off certain functionalities 
+based on your application's needs or specific requirements.
+
+The syntax for app.disable() is as follows:
+app.disable(setting)
+setting: The setting you want to disable.
+It can be one of the various application-level settings that Express supports,
+such as 'etag', 'x-powered-by', 'query parser', 'strict routing', etc.
+
+Here's an example of using app.disable() to turn off the 'x-powered-by' header:
+const express = require('express');
+const app = express();
+
+// Disable 'x-powered-by' header
+app.disable('x-powered-by');
+
+// Define route handlers
+app.get('/', (req, res) => {
+  res.send('Hello, World!');
+});
+In this example, by using app.disable('x-powered-by'), the 'x-powered-by'
+header will not be sent in the response when clients make requests to the server. 
+The 'x-powered-by' header typically displays the name of the framework used (e.g., Express),
+but disabling it can be a security measure to hide implementation details.
+
+Similarly, you can use app.disable() to turn off other settings like the 'etag' header,
+which can be useful in specific cases where you don't want clients to cache responses.
+
+Please refer to the Express.js documentation for a complete list of supported settings 
+that you can disable using app.disable(). Keep in mind that disabling certain settings 
+may impact the behavior of your application, so use this method judiciously and only when 
+you have a specific reason to do so.
+
+
+4.app.enable()
+This method is used to enable the settings like 
+It can be one of the various application-level settings that Express supports,
+such as 'etag', 'x-powered-by', 'query parser', 'strict routing', etc.
+
+
+
+
+
+
+
+
+
