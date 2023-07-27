@@ -22,6 +22,73 @@ as query parameters, which the server can use to customize the response.
 
 Express.js provides a convenient way to handle these incoming requests and 
 extract relevant data from them. For example, you can access the request method, 
+
+
+Request Methods:-
+1.req.app():
+In Express.js, the req.app property is a way to access the main Express application
+instance from within a route handler or middleware. It allows you to refer back to the
+main express() application object that you created when setting up your server.
+
+When you create an Express application, you do it like this:
+const express = require('express');
+const app = express();
+
+The app object is the main Express application instance, and you use it to define routes, middleware,
+and other settings for your web server.
+
+Now, whenever you handle incoming requests with your route handlers or middleware, 
+the req (request) object is passed as a parameter to these functions. The req object 
+contains information about the incoming request, such as the request headers, URL parameters, 
+form data, etc.
+
+With req.app, you can access the main Express application instance 
+(the app object) from within any route handler or middleware. 
+This can be useful when you want to:
+
+Access application-level settings: If you have set certain properties or configurations
+on the main app object, you can access them using req.app.
+Share data across different route handlers or middleware: You can store data on the main app
+object and retrieve it in other parts of your application using req.app.
+
+Here's a simplified example:
+const express = require('express');
+const app = express();
+
+// Set an application-level setting
+app.set('appName', 'My Express App');
+
+// Middleware
+app.use((req, res, next) => {
+  // Access the main Express application instance using req.app
+  const mainApp = req.app;
+
+  // Access the application-level setting (appName)
+  const appName = mainApp.get('appName');
+
+  console.log('Application Name:', appName);
+
+  next();
+});
+
+// Route handler
+app.get('/', (req, res) => {
+  // Access the main Express application instance using req.app
+  const mainApp = req.app;
+
+  // Access the application-level setting (appName)
+  const appName = mainApp.get('appName');
+
+  res.send(`Welcome to ${appName}`);
+});
+
+app.listen(3000, () => {
+  console.log('Server listening on port 3000');
+});
+In this example, we set an application-level setting called appName 
+using app.set('appName', 'My Express App'). The middleware and route 
+handler both access this setting using req.app.get('appName') and use i
+t to display the application name in the console and in the
 URL, headers, and body through the request object in your Express.js route handlers.
 
 Here's a simple example of an Express.js route handler that responds differently based on the incoming request:
@@ -50,6 +117,129 @@ the server will respond with "Hello, this is the homepage!" But if a client
 sends a POST request to the same URL, the server will respond with "You sent a POST request!" 
 The req object in each route handler contains all the information about the incoming request, 
 allowing you to differentiate and handle the requests accordingly.
+
+
+
+
+
+2.req.body():
+body: In the context of a request, body refers to the data that is sent by 
+the client in the HTTP request's body. The body can contain various types of data,
+such as form data, JSON data, or even binary data.
+To access the data in the request body, you typically use a middleware called body-parser,
+which is commonly used in Express applications. With body-parser, 
+you can parse the request body and make it available in the req.body object.
+
+Here's an example of using body-parser to parse JSON data from the request body:
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+
+// Parse JSON data from the request body
+app.use(bodyParser.json());
+
+// Define a POST route that expects JSON data in the request body
+app.post('/data', (req, res) => {
+  const data = req.body; // Access the parsed JSON data from req.body
+  console.log(data);
+  res.send('Data received successfully!');
+});
+
+app.listen(3000, () => {
+  console.log('Server listening on port 3000');
+});
+In this example, when a client makes a POST request to the "/data"
+endpoint with JSON data in the request body, body-parser parses the JSON 
+data and makes it available in the req.body object within the route handler.
+
+
+
+3.req.params:
+In Express.js, req.params is an object that contains the values of named parameters from the URL. 
+When you define a route with named parameters in the route path,
+Express captures those values and makes them accessible through the req.params object.
+
+Define a Route with Named Parameter:
+When you define a route in Express, you can specify named parameters by using a colon (:) 
+followed by the parameter name in the route path. For example:
+
+app.get('/users/:id', (req, res) => {
+  // Route handler code
+});
+
+In this case, the route has a named parameter id, and it will capture the value from the URL.
+
+Send a Request to the Route:
+When a client sends a request to this route with a value for the id parameter,
+Express will capture that value and store it in the req.params object.
+For example, if the client sends a GET request to /users/123, where 123 is the
+value for the id parameter, the req.params object will look like this:
+{
+  "id": "123"
+}
+
+Accessing the Parameter Value:
+Inside the route handler, you can access the value of the named parameter using req.params.parameterName. 
+
+app.get('/users/:id', (req, res) => {
+  const userId = req.params.id;
+  res.send(`User ID: ${userId}`);
+});
+When the client sends a request to /users/123,
+the route handler will extract the value 123 from req.params.id and respond with "User ID: 123".
+
+This is particularly useful when you have dynamic URLs with variable parts, 
+like user IDs, post IDs, or any other resource identifier.
+The named parameters allow you to handle different resources based on the values provided in the URL.
+
+
+4.req.query:
+In Express.js, req.query is an object that contains the parsed query parameters
+from the URL of a GET request. Query parameters are the key-value pairs added 
+to the URL after the question mark (?) and separated by ampersands (&).
+They are typically used to send data to the server as part of the URL.
+
+For example, consider the following URL:
+http://example.com/search?q=express.js&page=1
+
+In this URL, there are two query parameters:
+q with the value "express.js" and page with the value "1".
+
+The req.query object will look like this:
+{
+  "q": "express.js",
+  "page": "1"
+}
+
+Here's how you can use req.query in your Express.js route handler:
+
+const express = require('express');
+const app = express();
+
+app.get('/search', (req, res) => {
+  // Access the query parameters using req.query
+  const searchTerm = req.query.q;
+  const page = req.query.page;
+
+  res.send(`Search Term: ${searchTerm}, Page: ${page}`);
+});
+
+app.listen(3000, () => {
+  console.log('Server listening on port 3000');
+});
+In this example, when a client makes a GET request to the "/search" endpoint
+with the URL containing query parameters, the route handler can access the values of those parameters using req.query.
+
+For instance:
+Request: GET /search?q=express.js&page=1
+req.query.q will be "express.js"
+req.query.page will be "1"
+
+Using req.query, you can easily extract and use the data sent by the client
+in the URL query parameters. This is commonly used for search functionality,
+pagination, filtering, and more in web applications.
+
+
 
 
 
