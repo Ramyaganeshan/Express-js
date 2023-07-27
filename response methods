@@ -1,0 +1,132 @@
+1.res.end():
+Ends the response process. This method actually comes from Node core, 
+specifically the response.end() method of http.ServerResponse.
+
+Use to quickly end the response without any data.
+If you need to respond with data, instead use methods such as res.send() and res.json().
+
+res.end() vs. res.send():
+
+res.end(): The res.end() method is used to end the response process
+and send a response to the client without any content.
+It is typically used when you want to close the response without sending any specific data. 
+
+For example:
+app.get('/', (req, res) => {
+  res.end(); // Ends the response without sending any content
+});
+
+res.send(): The res.send() method is used to send various types of content 
+as the response to the client. It automatically sets the appropriate Content-Type
+header based on the content you provide (e.g., text, JSON, HTML).
+It is a versatile method that can handle strings, objects, arrays, and more. 
+
+For example:
+app.get('/hello', (req, res) => {
+  res.send('Hello, World!'); // Sends "Hello, World!" as the response
+});
+
+res.end() vs. res.json():
+res.end(): As mentioned earlier, res.end() ends the response process without sending any specific content. 
+It is useful when you want to close the response but don't need to send data,
+especially for simple responses or when you manually handle all response headers.
+
+
+
+Res.set():
+In Express.js, res.set() (or res.header()) is a method used to set response 
+headers for the HTTP response that will be sent back to the client.
+HTTP headers provide additional information about the response and 
+allow the client and server to communicate specific details about the data being exchanged.
+
+The res.set() method allows you to set multiple response headers at once,
+and you can also use it to override existing headers if needed. 
+
+basic syntax:
+res.set(field, value);
+
+field: The name of the response header you want to set
+(e.g., "Content-Type", "Cache-Control", "Access-Control-Allow-Origin", etc.).
+value: The value you want to set for the specified header.
+
+Here's an example of how you can use res.set() to set the "Content-Type" and "Cache-Control" headers for a JSON response:
+const express = require('express');
+const app = express();
+
+app.get('/data', (req, res) => {
+  const data = { message: 'Hello, JSON!' };
+
+  // Set response headers
+  res.set('Content-Type', 'application/json');
+  res.set('Cache-Control', 'no-cache');
+
+  // Send the JSON response
+  res.send(data);
+});
+
+app.listen(3000, () => {
+  console.log('Server listening on port 3000');
+});
+In this example, when a client makes a GET request to the "/data" endpoint,
+the route handler sets the "Content-Type" header to "application/json" 
+and the "Cache-Control" header to "no-cache" using res.set(). 
+Then, it sends a JSON response back to the client using res.send().
+
+You can use res.set() to set any valid response header for your specific use case.
+Keep in mind that some headers, like "Content-Type" or "Content-Length," have specific behaviors and may be
+automatically set by Express or other middleware depending on the type of data being sent in the response.
+
+
+
+4.res.status();
+In Express.js, res.status() is a method used to set the HTTP status code for the response 
+that will be sent back to the client. HTTP status codes are three-digit numbers
+that indicate the status of the HTTP request-response cycle. 
+They provide information about whether the request was successful, encountered an error, 
+or requires further action from the client.
+
+The res.status() method allows you to explicitly set the status code for the response.
+By default, if you don't set a status code explicitly, Express will set it to 200 (OK) for successful responses.
+
+Here's the basic syntax of res.status():
+res.status(statusCode);
+statusCode: The HTTP status code that you want to set for the response. 
+It should be a valid HTTP status code number (e.g., 200, 404, 500, etc.).
+
+Here's an example of how you can use res.status() to set the status code for different responses:
+const express = require('express');
+const app = express();
+
+// Successful response with status code 200
+app.get('/success', (req, res) => {
+  res.status(200).send('Success!');
+});
+
+// Not found response with status code 404
+app.get('/not-found', (req, res) => {
+  res.status(404).send('Page not found!');
+});
+
+// Internal server error response with status code 500
+app.get('/error', (req, res) => {
+  res.status(500).send('Internal server error!');
+});
+
+app.listen(3000, () => {
+  console.log('Server listening on port 3000');
+});
+In this example, we have three different routes with different status codes.
+For the "/success" route, the status code is set to 200, indicating a successful response. 
+For the "/not-found" route, the status code is set to 404, indicating that the requested 
+resource was not found. For the "/error" route, the status code is set to 500,
+indicating an internal server error.
+
+By using res.status(), you can provide the appropriate status code to convey the result 
+of the request accurately to the client. This can help the client understand whether the
+request was successful or if any errors occurred during the server's processing of the request.
+
+
+
+
+
+
